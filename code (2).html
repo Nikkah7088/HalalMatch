@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Profile - HalalMatch</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>HalalMatch</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="view_profiles.html">View Profiles</a></li>
+                    <li><a href="submit_profile.html">Submit Profile</a></li>
+                    <li><a href="#contact">Contact Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="form-section">
+        <div class="container">
+            <h2>Submit Your Profile</h2>
+            <form action="submit_profile_handler.php" method="POST">
+                <label for="fullName">Full Name:</label>
+                <input type="text" id="fullName" name="fullName" required>
+
+                <label for="gender">Gender:</label>
+                <select id="gender" name="gender" required>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+
+                <label for="age">Age:</label>
+                <input type="number" id="age" name="age" required>
+
+                <label for="city">City:</label>
+                <input type="text" id="city" name="city" required>
+
+                <label for="province">Province:</label>
+                <input type="text" id="province" name="province" required>
+
+                <label for="education">Education:</label>
+                <input type="text" id="education" name="education" required>
+
+                <label for="profession">Profession:</label>
+                <input type="text" id="profession" name="profession" required>
+
+                <label for="income">Monthly Income:</label>
+                <input type="text" id="income" name="income" required>
+
+                <label for="maritalStatus">Marital Status:</label>
+                <select id="maritalStatus" name="maritalStatus" required>
+                    <option value="Single">Single</option>
+                    <option value="Divorced">Divorced</option>
+                    <option value="Widow">Widow</option>
+                </select>
+
+                <label for="whatsapp">WhatsApp Number:</label>
+                <input type="text" id="whatsapp" name="whatsapp" required>
+
+                <label for="lookingFor">Looking For:</label>
+                <select id="lookingFor" name="lookingFor" required>
+                    <option value="Boy">Boy</option>
+                    <option value="Girl">Girl</option>
+                </select>
+
+                <label for="description">Short Description:</label>
+                <textarea id="description" name="description" required></textarea>
+
+                <button type="submit">Submit Profile</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 HalalMatch. All rights reserved.</p>
+            <p><a href="#privacy">Privacy Policy</a></p>
+        </div>
+    </footer>
+</body>
+</html>

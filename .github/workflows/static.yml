@@ -1,0 +1,209 @@
+# Simple workflow for deploying static content to GitHub Pages
+name: # Let's create a ZIP file containing the basic structure and code for the HalalMatch.com website.
+from zipfile import ZipFile
+import os
+
+# Create a directory for the website
+base_dir = "/mnt/data/HalalMatch"
+os.makedirs(base_dir, exist_ok=True)
+
+# HTML Templates
+index_html = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HalalMatch.com - Halal Matrimony</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>HalalMatch.com</h1>
+        <p>Your Trusted Platform for Halal, Family-Approved Matrimony</p>
+    </header>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="submit_profile.html">Submit Profile</a>
+        <a href="view_profiles.html">View Profiles</a>
+    </nav>
+    <main>
+        <section>
+            <h2>Welcome</h2>
+            <p>This platform helps Muslims find halal marriage proposals. No dating, no fees, only admin-approved profiles.</p>
+        </section>
+    </main>
+    <footer>
+        <p>Contact: HalalNikkahMatch@gmail.com | WhatsApp: +92 309 9933547</p>
+        <p>Admins: Ahmed Hassan Noor & Qari Nadeem Ali</p>
+    </footer>
+</body>
+</html>
+"""
+
+submit_profile_html = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Submit Profile</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h2>Submit Your Marriage Profile</h2>
+    <form action="#" method="post">
+        <label>Full Name: <input type="text" name="fullname" required></label><br>
+        <label>Gender: 
+            <select name="gender">
+                <option>Male</option>
+                <option>Female</option>
+            </select>
+        </label><br>
+        <label>Age: <input type="number" name="age" required></label><br>
+        <label>City: <input type="text" name="city" required></label><br>
+        <label>Marital Status: <select><option>Single</option><option>Divorced</option><option>Widow</option></select></label><br>
+        <label>Description: <textarea name="desc"></textarea></label><br>
+        <label>Guardian Name: <input type="text" name="guardian"></label><br>
+        <label>WhatsApp: <input type="text" name="whatsapp"></label><br>
+        <button type="submit">Submit Profile</button>
+    </form>
+</body>
+</html>
+"""
+
+view_profiles_html = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Profiles</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h2>Approved Profiles</h2>
+    <div id="filters">
+        <label>Gender: <select><option>All</option><option>Male</option><option>Female</option></select></label>
+        <label>City: <input type="text" placeholder="Search City"></label>
+        <label>Age: <input type="number" placeholder="Min"> to <input type="number" placeholder="Max"></label>
+    </div>
+    <div class="profiles">
+        <div class="profile-card">
+            <p><strong>Name:</strong> Sample Name</p>
+            <p><strong>Age:</strong> 28</p>
+            <p><strong>City:</strong> Karachi</p>
+            <p><strong>Status:</strong> Single</p>
+        </div>
+    </div>
+</body>
+</html>
+"""
+
+admin_html = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel - HalalMatch</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h2>Admin Dashboard</h2>
+    <p>Only visible to authorized admins</p>
+    <div class="admin-table">
+        <table border="1">
+            <tr>
+                <th>Name</th><th>Age</th><th>City</th><th>Status</th><th>Actions</th>
+            </tr>
+            <tr>
+                <td>Sample Name</td><td>28</td><td>Karachi</td><td>Pending</td>
+                <td>
+                    <button>Approve</button>
+                    <button>Reject</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
+"""
+
+styles_css = """
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #f6f9f6;
+    color: #333;
+}
+header, nav, footer {
+    background-color: #dceadf;
+    padding: 10px;
+    text-align: center;
+}
+nav a {
+    margin: 0 10px;
+    text-decoration: none;
+}
+form {
+    background: #fff;
+    padding: 15px;
+    border: 1px solid #ccc;
+    width: 60%;
+    margin: auto;
+}
+.profile-card {
+    background: #fff;
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid #ccc;
+}
+"""
+
+# Write the files
+with open(os.path.join(base_dir, "index.html"), "w") as f:
+    f.write(index_html)
+
+with open(os.path.join(base_dir, "submit_profile.html"), "w") as f:
+    f.write(submit_profile_html)
+
+with open(os.path.join(base_dir, "view_profiles.html"), "w") as f:
+    f.write(view_profiles_html)
+
+with open(os.path.join(base_dir, "admin.html"), "w") as f:
+    f.write(admin_html)
+
+with open(os.path.join(base_dir, "styles.css"), "w") as f:
+    f.write(styles_css)
+
+# Create ZIP file
+zip_path = "/mnt/data/HalalMatchWebsite.zip"
+with ZipFile(zip_path, "w") as zipf:
+    for root, dirs, files in os.walk(base_dir):
+        for file in files:
+            zipf.write(os.path.join(root, file), arcname=file)
+
+zip_path
+
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  # Single deploy job since we're just deploying
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Upload entire repository
+          path: '.'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

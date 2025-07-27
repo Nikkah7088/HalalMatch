@@ -1,0 +1,61 @@
+# Halal Match – Free Nikah Matchmaking Platform
+
+Welcome to **Halal Match**, a 100% free, Shariah-compliant, family-oriented matchmaking platform dedicated to helping Muslim individuals and families worldwide find suitable partners for **halal nikah** only.
+
+## 🌍 Project Vision
+
+A modern, respectful, and professional matchmaking service that avoids casual chatting or dating. All proposals are reviewed and managed by admins to ensure trust, transparency, and Islamic values.
+
+---
+
+## 📌 Features
+
+- 🕌 **Shariah-compliant** matchmaking only (no casual dating)
+- 📋 **Profile submission** form with detailed fields
+- 🔍 **Filtered profile viewing** (gender, city, age, status)
+- 🔒 **Admin-reviewed** matches (no user-to-user contact)
+- 📱 **Responsive design** (mobile-first using Flexbox/Grid)
+- 🧠 Optional JS automation and data handling (e.g., Airtable)
+
+---
+
+## 🧩 Project Structure
+
+- `index.html`: Homepage – Includes tagline, how it works, contact info
+- `submit_profile.html`: Form for submitting nikah profiles
+- `view_profiles.html`: Public view of approved profiles
+- `admin.html` (optional): Secure admin dashboard for approving/rejecting profiles
+- `style.css`: Responsive styling using Flexbox and media queries
+- `script.js`: Handles data simulation (localStorage/JSON)
+
+---
+
+## 🚫 Privacy & Safety Guidelines
+
+- No public logins
+- No chats between users
+- Guardian contact is never public
+- Profile info is reviewed and verified by admins only
+
+---
+
+## 🛠 Manual GitHub Workflow
+
+This repository includes a manual GitHub Actions workflow (`.github/workflows/manual.yml`) to test basic automation:
+
+```yaml
+name: Manual workflow
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Person to greet'
+        default: 'World'
+        required: true
+        type: string
+jobs:
+  greet:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send greeting
+        run: echo "Hello ${{ inputs.name }}"

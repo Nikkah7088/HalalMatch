@@ -6,10 +6,7 @@ Welcome to **Halal Match**, a 100% free, Shariah-compliant, family-oriented matc
 
 A modern, respectful, and professional matchmaking service that avoids casual chatting or dating. All proposals are reviewed and managed by admins to ensure trust, transparency, and Islamic values.
 
----
-
-## 📌 Features
-
+ 📌 Features
 - 🕌 **Shariah-compliant** matchmaking only (no casual dating)
 - 📋 **Profile submission** form with detailed fields
 - 🔍 **Filtered profile viewing** (gender, city, age, status)
@@ -41,8 +38,6 @@ A modern, respectful, and professional matchmaking service that avoids casual ch
 
 ## 🛠 Manual GitHub Workflow
 
-This repository includes a manual GitHub Actions workflow (`.github/workflows/manual.yml`) to test basic automation:
-
 name: Manual workflow
 
 on:
@@ -52,11 +47,11 @@ on:
         description: 'Person to greet'
         required: true
         default: 'World'
-        type: string
 
 jobs:
   greet:
     runs-on: ubuntu-latest
     steps:
       - name: Send greeting
-        run: echo "Hello ${{ inputs.name }}"
+        run: echo "Hello ${{ github.event.inputs.name }}"
+

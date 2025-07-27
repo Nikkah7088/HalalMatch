@@ -1,0 +1,43 @@
+# ✅ Professional GitHub Actions Workflow for Static Website Deployment on GitHub Pages
+name: Deploy HalalMatch.com Static Site
+
+# Trigger deployment on push to main branch or manual run
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+# Set permissions required for GitHub Pages deployment
+permissions:
+  contents: read       # Read repository contents
+  pages: write         # Write access to GitHub Pages
+  id-token: write      # Needed for OIDC authentication
+
+# Ensure only one deployment is running at a time
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: 🚀 Deploy to GitHub Pages
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    
+    steps:
+      - name: 🔄 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: 📦 Upload Static Files
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'  # Upload entire site content
+
+      - name: 🌐 Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -43,16 +43,17 @@ A modern, respectful, and professional matchmaking service that avoids casual ch
 
 This repository includes a manual GitHub Actions workflow (`.github/workflows/manual.yml`) to test basic automation:
 
-```yaml
 name: Manual workflow
+
 on:
   workflow_dispatch:
     inputs:
       name:
         description: 'Person to greet'
-        default: 'World'
         required: true
+        default: 'World'
         type: string
+
 jobs:
   greet:
     runs-on: ubuntu-latest
